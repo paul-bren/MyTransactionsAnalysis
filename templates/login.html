@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+	<div class="container">
+		<div class="login-box">
+			<h2>Login</h2>
+			<form method="POST" action="{{ url_for('loginForm') }}">
+				{{ form.csrf_token }}
+				<div class="user-box">
+					{{ form.username.label }}
+					{{ form.username(class_="form-control", required="required") }}
+				</div>
+				<div class="user-box">
+					{{ form.password.label }}
+					{{ form.password(class_="form-control", required="required") }}
+				</div>
+				<a href="#">Forgot Password?</a>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<div>
+			<p>Don't have an account yet? <a href="{{ url_for('create_account') }}">Create one</a></p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Banking Analysis</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div class="sidebar">
+		<a href="/home">Home</a>
+		<a href="/upload">Upload Data</a>
+		<a href="http://localhost:3000/login">View Data Insights</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+	<div class="content">
+		<h1>Upload Banking Data</h1>
+		<form method="post" enctype="multipart/form-data">
+			<input type="file" name="file">
+			<input type="submit" value="Upload">
+		</form>
+	</div>
+
+</body>
+</html>

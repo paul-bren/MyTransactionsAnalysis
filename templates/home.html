@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Banking Analysis</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div class="sidebar">
+		<a href="/home">Home</a>
+		<a href="/upload">Upload Data</a>
+		<a href="http://localhost:3000/login">View Data Insights</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+	<div class="content">
+		<div class="inner">
+		  <h1>Welcome to Banking Analysis</h1>
+		  <p>Our online tool makes it easy to analyze your banking data and gain valuable insights. Simply upload your data using the 'Upload Data' page, and follow the instructions to get started.</p>
+		  <div class="button-container">
+			<a class="cta" href="/upload">Get Started</a>
+		  </div>
+		</div>
+	  </div>
+	  
+</body>
+</html>
