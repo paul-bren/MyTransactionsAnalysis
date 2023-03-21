@@ -116,8 +116,8 @@ def upload():
                     break
             df['insertdate'] = datetime.now()
             df['date'] = pd.to_datetime(df.iloc[:,0].replace(np.nan, '01/01/1991'), format='%d/%m/%Y').dt.strftime('%Y-%m-%d')
-            df['full_transaction'] = df.iloc[:, 1].replace(np.nan, None)
-            df['vendor_data'] = df.iloc[:, 1]
+            df['full_transaction'] = df.iloc[:, 1].str.replace('\s+', ' ', regex=True).str.rstrip()
+            df['vendor_data'] = df.iloc[:, 1].str.replace('\s+', ' ', regex=True).str.rstrip()
             vendor = []
             for i in range(len(df)):
                 vendor_data = str(df['vendor_data'].iloc[i])
@@ -129,8 +129,11 @@ def upload():
             df['debit'] = df.iloc[:, 2].replace(np.nan, 0)
             df['credit'] = df.iloc[:, 3].replace(np.nan, 0)
             df['balance'] = df.iloc[:, 4].replace(np.nan, 0)
-            df['duplicates'] = 0
-            cursor.execute("select max(date) from items")
+    
+
+            max_date_query = ("select max(date) from items where user = %s")
+            value_for_max_date = session['username']
+            cursor.execute(max_date_query, value_for_max_date)
             max_date_tuple = cursor.fetchone()
             max_date = max_date_tuple[0] if max_date_tuple is not None else None
 
@@ -144,9 +147,9 @@ def upload():
                     if row_date <= max_date:
                         continue
                 try:
-                    query2 = """INSERT INTO items (insertdate,date,full_transaction,vendor,debit,credit,balance,duplicates) 
+                    query2 = """INSERT INTO items (insertdate,date,full_transaction,vendor,debit,credit,balance,user) 
                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s) """
-                    values = (row['insertdate'], row['date'], row['full_transaction'], row['vendor'], row['debit'], row['credit'], row['balance'], row['duplicates'])
+                    values = (row['insertdate'], row['date'], row['full_transaction'], row['vendor'], row['debit'], row['credit'], row['balance'], session['username'])
                     cursor.execute (query2, values)
                     db.commit()
                 except Exception as e:
@@ -162,6 +165,14 @@ def upload():
     else:
         return redirect('/')
     return render_template('upload.html')
+
+@app.route("/DataInsight", methods=['GET', 'POST'])
+def data_insights():
+    if 'authenticated' in session and session['authenticated']:
+        print(session['username'])
+        return render_template('DataInsight.html')
+    else:
+        return redirect('/')
 
 @app.route('/logout')
 def logout():

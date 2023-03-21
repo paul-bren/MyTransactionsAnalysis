@@ -155,3 +155,60 @@ a:hover {
 	}
   }
   
+
+
+
+
+
+
+
+
+
+  .button-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+	height: 65vh; /* set height of container to 65% of viewport height */
+}
+
+.button {
+	display: block;
+	width: 300px;
+	height: 50%; /* set height of button to 50% of container height */
+	margin: 0 20px;
+	padding: 20px;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 10px;
+	background-color: #4a148c;
+	background-image: linear-gradient(315deg, #4a148c 0%, #9c27b0 74%);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.button:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.button:last-child {
+	margin-right: 0;
+}
+
+@media only screen and (max-width: 600px) {
+	.button-container {
+		flex-direction: column;
+		margin-top: 30px;
+		height: auto; /* reset height to auto for smaller screens */
+	}
+
+	.button {
+		margin: 10px 0;
+		height: 60px; /* set height of button to fixed height for smaller screens */
+	}
+}
