@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: banking-analysis-db
+  labels:
+    app: boi-db
+spec:
+  selector:
+    app: boi-db
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+  type: ClusterIP

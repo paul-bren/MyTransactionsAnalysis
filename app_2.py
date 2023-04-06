@@ -7,13 +7,14 @@ from forms import LoginForm_1
 import pandas as pd
 import numpy as np
 from datetime import datetime, date
+import cryptography
 from RegistrationForm import RegistrationForm
 
 app = Flask(__name__)
 app.secret_key = 'pass'
 
-#upload_folder='/app/data_2_examine'
-upload_folder='C:/Users/paulb/OneDrive/Documents/MyWork/MyTranscationsAnalysis/data_2_examine' # change to above 'upload_folder' when running in docker container
+upload_folder='/app/data_2_examine'
+#upload_folder='C:/Users/paulb/OneDrive/Documents/MyWork/MyTranscationsAnalysis/data_2_examine' # change to above 'upload_folder' when running in docker container
 app.config['upload_folder'] = upload_folder
 
 class User:
@@ -22,7 +23,9 @@ class User:
         self.password = password
 
 def connect_to_db():
-    db = pymysql.connect(host='localhost', #hostname will be diff once i run this in docker container
+    #db = pymysql.connect(host='localhost', #hostname will be diff once i run this in docker container
+    #db = pymysql.connect(host='172.17.0.2', #hostname will be diff once i run this in docker container                   
+    db = pymysql.connect(host='banking-analysis-db', #hostname will be diff once i run this in docker container          
     user='root',         
     passwd='pass', 
     port=3306,
